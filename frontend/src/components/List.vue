@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col class=".col-4 .col-md4" v-for="book in books" :key="book.name">
+    <v-col class=".col-4 .col-md4" v-for="book in books" :key="book.id">
       <v-card
         class="mx-auto"
         :flat="flat"
@@ -10,19 +10,7 @@
         :height="height"
         style="border-radius: 10px"
       >
-        <v-img height="66%" :src="book.img"></v-img>
-        <v-card-title>
-          <v-spacer></v-spacer>
-          {{book.name}}
-          <v-spacer></v-spacer>
-        </v-card-title>
-        <v-divider></v-divider>
-        <v-card-text class="crimer_text">{{book.short_desc}}</v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn class="deep-purple" @click="changePage(book.to)">Подробнее</v-btn>
-          <v-spacer></v-spacer>
-        </v-card-actions>
+        <v-img height="100%" :src="book.image" @click="changePage(book.id)" style="cursor:pointer"></v-img>
       </v-card>
     </v-col>
   </v-row>
@@ -37,13 +25,14 @@ export default {
       outlined: false,
       raised: false,
       width: 550,
-      height: 600,
+      height: 625,
       books: this.$store.getters.getBooks
     };
   },
   methods: {
     changePage(to) {
-      this.$router.push(to);
+      var link = "/book/" + to;
+      this.$router.push(link);
     }
   }
 };

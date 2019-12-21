@@ -4,8 +4,8 @@
     <v-timeline :dense="$vuetify.breakpoint.smAndDown">
       <v-timeline-item color="deep-orange darken-1" fill-dot right>
         <v-card>
-          <v-card-title class="deep-orange darken-1">
-            <h2 class="display-1 white--text font-weight-light">Прокофьев Александр</h2>
+          <v-card-title class="deep-orange darken-1 ">
+            <h2 class="display-1  white--text font-weight-light">Прокофьев Александр</h2>
           </v-card-title>
           <v-container>
             <v-row>
@@ -18,7 +18,7 @@
       <v-timeline-item color="purple darken-2" fill-dot left small>
         <v-card>
           <v-card-title class="purple darken-2 justify-end">
-            <h2 class="display-1 mr-4 white--text font-weight-light">Кузьмин Сергей</h2>
+            <h2 class="display-1 white--text font-weight-light">Кузьмин Сергей</h2>
           </v-card-title>
           <v-container>
             <v-row>
@@ -31,7 +31,7 @@
       <v-timeline-item color="red lighten-1" fill-dot right>
         <v-card>
           <v-card-title class="red lighten-1">
-            <h2 class="display-1 white--text font-weight-light">Сазонов Савелий</h2>
+            <h2 class="display-1  white--text font-weight-light">Сазонов Савелий</h2>
           </v-card-title>
           <v-container>
             <v-row>
