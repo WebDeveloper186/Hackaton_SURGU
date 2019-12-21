@@ -30,26 +30,8 @@ export default new Vuex.Store({
       },
       {
         icon: "supervisor_account",
-        text: "О нас",
-        to: "/about",
-        style: "left_menu"
-      },
-      {
-        icon: "feedback",
-        text: "Форма",
-        to: "/form",
-        style: "left_menu"
-      },
-      {
-        icon: "table_chart",
-        text: "Просмотр таблиц",
-        to: "/tables",
-        style: "left_menu"
-      },
-      {
-        icon: "add_a_photo",
-        text: "Фотографии",
-        to: "/images",
+        text: "О нашей команде",
+        to: "/team",
         style: "left_menu"
       }
     ],
@@ -70,7 +52,7 @@ export default new Vuex.Store({
         price: 15
       }
     ],
-    crimers: [{
+    books: [{
         name: "Амадо Каррильо Фуэнтес",
         img: "https://upload.wikimedia.org/wikipedia/ru/3/37/Amado.jpg",
         to: "/crimer/1",
@@ -118,8 +100,8 @@ export default new Vuex.Store({
     sessions: []
   },
   getters: {
-    getCrimers(state) {
-      return state.crimers;
+    getBooks(state) {
+      return state.books;
     },
     getNavigation(state) {
       return state.nav;

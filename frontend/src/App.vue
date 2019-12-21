@@ -23,31 +23,12 @@
           </v-btn>
         </v-list-item>
       </v-list>
-      <v-menu offset-y :open-on-hover="true" transition="scroll-y-transition" class>
-        <template v-slot:activator="{ on }">
-          <v-btn text color="white" dark v-on="on">
-            <v-icon class="pr-5">list</v-icon>
-            <span style="font-size: 12px; padding-left: 10px">Наши преступники</span>
-          </v-btn>
-        </template>
-        <v-list>
-          <v-list-item>
-            <v-list-item-title style="text-align:center">Наша команда</v-list-item-title>
-          </v-list-item>
-          <v-divider></v-divider>
-          <v-list-item v-for="item in crimers" :key="item.name">
-            <v-btn text @click="changePage(item.to)">
-              <v-list-item-title style="font-size: 15px; text-transform: none">{{ item.name }}</v-list-item-title>
-            </v-btn>
-          </v-list-item>
-        </v-list>
-      </v-menu>
     </v-navigation-drawer>
 
-    <v-app-bar app clipped-left color="green" dense>
+    <v-app-bar app clipped-left color="deep-purple accent-4" dense>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title class="mr-12 align-center">
-        <span class="title">Мексикансие преступники</span>
+        <span class="title">BookSharing</span>
       </v-toolbar-title>
       <div class="flex-grow-1"></div>
       <v-row align="center" style="max-width: 650px"></v-row>
@@ -174,7 +155,7 @@
     </v-content>
     <v-footer>
       <div class="flex-grow-1"></div>
-      <div>Developed by Aleksander Prokofev &copy; {{ new Date().getFullYear() }}</div>
+      <div>Developed by xX_flex_Xx &copy; {{ new Date().getFullYear() }}</div>
       <v-spacer></v-spacer>
     </v-footer>
   </v-app>
@@ -188,7 +169,6 @@ export default {
   data() {
     return {
       drawer: true,
-      crimers: this.$store.getters.getCrimers,
       nav: this.$store.getters.getNavigation,
       flat: false,
       menu: false,
