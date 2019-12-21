@@ -47,10 +47,13 @@
               <p>
                 <b style="text-transform: uppercase">Аннотация:</b>
                 Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosa, saepe debitis non omnis accusamus dolorem est enim eum nobis, deleniti vero nihil cupiditate.
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed minima tempora possimus perspiciatis earum aliquam enim repellendus? Maiores ipsam ut perferendis in perspiciatis, consectetur soluta est quod enim ducimus repellat!
               </p>
             </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="purple">Заказать книгу</v-btn>
+              <v-spacer></v-spacer>
+            </v-card-actions>
           </v-card>
         </v-col>
       </v-row>
