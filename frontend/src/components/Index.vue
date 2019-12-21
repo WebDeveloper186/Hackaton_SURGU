@@ -14,16 +14,12 @@
       <v-img
         class="white--text"
         height="200px"
-        src="https://www.tourprom.ru/site_media/images/upload/2016/8/31/countryimage/meksika.jpg"
+        src="https://psv4.userapi.com/c856224/u171284348/docs/d9/86bc640c6470/logo.png?extra=NgfjlOOSghj7PS2XFocwGgatICoxMK5v-pHIVFoBGdvuqpxpEhPzH5kDl6EQzIZLETWZ30-BsmgN_ahmj-MdqRPnKuWfO-s_y9dzXIr1lfDmD1LlBp4iZZG7onCgw4eP79TFStS3LY9wpV6rBYCphA&dl=1"
       >
-        <v-card-title class="align-end fill-height">
-          <v-spacer></v-spacer>Добро пожаловать
-          <v-spacer></v-spacer>
-        </v-card-title>
       </v-img>
 
       <v-card-text style="text-align: center; padding-top: 30px">
-        <p>Добро пожаловать</p>
+        <p>Добро пожаловать на сайт по обмену книг между гражданами "BookSharing"!</p>
       </v-card-text>
     </v-card>
   </v-row>

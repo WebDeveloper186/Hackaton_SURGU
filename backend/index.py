@@ -9,7 +9,7 @@ from flask_api import status
 from peewee import \
     (Model, SqliteDatabase,
      CharField, IntegerField,
-     DateTimeField)
+     DateTimeField, BooleanField)
 
 STATIC_PATH = "/static"
 
@@ -28,12 +28,19 @@ class User(BaseModel):
     password = CharField()
 
 
-class Order(BaseModel):
-    username = CharField()
-    address = CharField()
-    time = DateTimeField()
-    services = CharField()
-    price = IntegerField()
+class Orders(BaseModel):
+    user_id = IntegerField()
+    user_name = CharField()
+    book_id = IntegerField()
+
+
+class Books(BaseModel):
+    _id = IntegerField()
+    author = CharField()
+    name = CharField()
+    _type = CharField()
+    image = CharField()
+    flag = BooleanField()
 
 
 class Auth(BaseModel):
@@ -43,7 +50,7 @@ class Auth(BaseModel):
     ip = CharField()
 
 
-db.create_tables([User, Order, Auth])
+db.create_tables([User, Books, Orders, Auth])
 
 
 def auth_user(username, password, fingerprint, ip):
@@ -132,33 +139,6 @@ def get_users():
     return jsonify({'rows': list(query)})
 
 
-@app.route('/api/form_return', methods=['POST'])
-def form():
-    result = 0
-    content = request.json
-    horse = int(content['horse'])
-    cost = int(content['cost'])
-    if horse <= 100:
-        result = horse * 15
-    elif horse <= 150:
-        result = horse * 35
-    elif horse <= 200:
-        result = horse * 40
-    elif horse <= 250:
-        result = horse * 60
-    else:
-        result = horse * 120
-
-    if 3000000 <= cost <= 5000000:
-        result = result * 1.1
-    elif 5000000 <= cost <= 10000000:
-        result = result * 2
-    elif cost >= 10000000:
-        result = result * 3
-    json_data = json.dumps({"cost": result})
-    return json_data
-
-
 @app.route('/api/auth', methods=['GET', 'PUT', 'POST'])
 def auth():
     if request.method == 'GET':
@@ -226,21 +206,10 @@ def get_db_data():
         return get_users()
 
 
-@app.route('/api/upload_image', methods=['GET', 'POST'])
-def images():
-    if request.method == 'GET':
-        return jsonify({"rows": os.listdir('static')})
-    elif request.method == 'POST':
-        file = request.files['file']
-        if file:
-            filename = secure_filename(file.filename)
-            file.save(os.path.join("static/", filename))
-            return redirect("http://localhost:8080/images")
-
-
-@app.route('/api/image/<name>')
-def image(name):
-    return app.send_static_file(name)
+@app.route('/api/getBooks', methods=['GET', 'POST'])
+def get_books():
+    query = Books.select().dict()
+    return jsonify({'rows': list(query)})
 
 
 if __name__ == "__main__":
