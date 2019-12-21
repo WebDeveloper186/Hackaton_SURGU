@@ -33,6 +33,7 @@ class Orders(BaseModel):
     book_name = CharField()
     user_id = IntegerField()
     user_name = CharField()
+    status = IntegerField()
 
 
 class Books(BaseModel):
@@ -40,7 +41,7 @@ class Books(BaseModel):
     name = CharField()
     _type = CharField()
     image = CharField()
-    flag = BooleanField()
+    flag = IntegerField()
 
 
 class Auth(BaseModel):
