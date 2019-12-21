@@ -15,7 +15,7 @@ STATIC_PATH = "/static"
 
 app = Flask(__name__, static_url_path=STATIC_PATH)
 flask_cors.CORS(app)
-db = SqliteDatabase('base.db')
+db = SqliteDatabase('backend/base.db')
 
 
 class BaseModel(Model):
@@ -29,13 +29,13 @@ class User(BaseModel):
 
 
 class Orders(BaseModel):
+    book_id = IntegerField()
+    book_name = CharField()
     user_id = IntegerField()
     user_name = CharField()
-    book_id = IntegerField()
 
 
 class Books(BaseModel):
-    _id = IntegerField()
     author = CharField()
     name = CharField()
     _type = CharField()
@@ -208,7 +208,7 @@ def get_db_data():
 
 @app.route('/api/getBooks', methods=['GET', 'POST'])
 def get_books():
-    query = Books.select().dict()
+    query = Books.select().dicts()
     return jsonify({'rows': list(query)})
 
 
