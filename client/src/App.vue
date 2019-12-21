@@ -1,60 +1,46 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
+    <v-app-bar app color="primary" dark></v-app-bar>
 
     <v-content>
-      <HelloWorld/>
+      <ul>
+        <li v-if="!isAuthenticated">
+          <a href="#" @click="login">Login</a>
+        </li>
+        <li v-if="isAuthenticated">
+          <a href="#" @click="logout">Log out</a>
+        </li>
+      </ul>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
-
 export default {
-  name: 'App',
-
-  components: {
-    HelloWorld,
+  name: "app",
+  data() {
+    return {
+      isAuthenticated: false
+    };
   },
-
-  data: () => ({
-    //
-  }),
+  async created() {
+    try {
+      await this.$auth.renewTokens();
+    } catch (e) {
+      alert(e);
+    }
+  },
+  methods: {
+    login() {
+      this.$auth.login();
+    },
+    logout() {
+      this.$auth.logOut();
+    },
+    handleLoginEvent(data) {
+      this.isAuthenticated = data.loggedIn;
+      this.profile = data.profile;
+    }
+  }
 };
 </script>
