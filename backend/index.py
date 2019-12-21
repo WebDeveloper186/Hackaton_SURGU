@@ -209,8 +209,17 @@ def get_db_data():
 
 @app.route('/api/getBooks', methods=['GET', 'POST'])
 def get_books():
-    query = Books.select().dicts()
-    return jsonify({'rows': list(query)})
+    if request.method == "GET":
+        query = Books.select().dicts()
+        return jsonify({'rows': list(query)})
+    else:
+        content = request.json
+        author = content['author']
+        name = content['name']
+        _type = content['type']
+        image = content['image']
+        return "0"
+
 
 
 if __name__ == "__main__":

@@ -2,6 +2,7 @@
   <v-row justify="center" align="center">
     <v-col cols="12" sm="6">
       <v-form ref="form" class="cart-form" width="400" flat>
+        <h2 style="text-align: center" class="mx-auto">Форма размещения книги</h2>
         <v-text-field v-model="username" label="Имя пользователя" :disabled="true"></v-text-field>
 
         <v-text-field v-model="address" label="Название книги"></v-text-field>
@@ -9,11 +10,13 @@
         <v-text-field v-model="address" label="Автор книги"></v-text-field>
 
         <v-text-field v-model="address" label="Жанры"></v-text-field>
-        
+
         <v-text-field v-model="address" label="Ссылка на обложку книги"></v-text-field>
-        
-        <v-btn color="success" class="mr-3" @click="order">Разместить</v-btn>
-        <v-btn color="error" class="mr-3" @click="reset">Очистить форму</v-btn>
+
+        <div style="margin-top:10px; margin-bottom:5px">
+          <v-btn color="success" class="mr-3" @click="order">Разместить</v-btn>
+          <v-btn color="error" style="margin-left:250px" @click="reset">Очистить форму</v-btn>
+        </div>
       </v-form>
     </v-col>
     <v-snackbar v-model="snackbar" :color="color" :timeout="5000" top="top">
