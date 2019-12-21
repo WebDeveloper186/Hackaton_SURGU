@@ -316,6 +316,7 @@ export default {
 
     this._getFingerprint();
     this.$store.dispatch("checkLocalStore");
+    this.$store.dispatch("getBooks");
   }
 };
 </script>

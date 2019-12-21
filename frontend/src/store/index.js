@@ -24,9 +24,9 @@ export default new Vuex.Store({
       },
       {
         icon: "format_list_numbered",
-        text: "Список преступников",
+        text: "Список книг",
         to: "/list",
-        style: "left_menu_list"
+        style: "left_menu"
       },
       {
         icon: "supervisor_account",
@@ -52,49 +52,7 @@ export default new Vuex.Store({
         price: 15
       }
     ],
-    books: [{
-        name: "Амадо Каррильо Фуэнтес",
-        img: "https://upload.wikimedia.org/wikipedia/ru/3/37/Amado.jpg",
-        to: "/crimer/1",
-        short_desc: "Мексиканский преступник, крупный наркоторговец, один из основателей наркокартеля Хуареса.",
-        desc: "Мексиканский преступник, крупный наркоторговец, один из основателей наркокартеля Хуареса. DEA считает Амадо самым крупным наркоторговцем своей эпохи. Получил кличку «Повелитель небес», за транспортировку наркотиков в США целыми самолетами."
-      },
-      {
-        name: "Хосе де Леон Тораль",
-        img: "https://upload.wikimedia.org/wikipedia/commons/f/fe/JoseDeLeonToral.JPG",
-        to: "/crimer/2",
-        short_desc: "Мексиканский рисовальщик, убийца мексиканского президента Альваро Обрегона",
-        desc: "Мексиканский рисовальщик, убийца мексиканского президента Альваро Обрегона"
-      },
-      {
-        name: "Сервандо Гомес Мартинес",
-        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Servando_G%C3%B3mez_Mart%C3%ADnez.jpg/800px-Servando_G%C3%B3mez_Mart%C3%ADnez.jpg",
-        to: "/crimer/3",
-        short_desc: "Мексиканский наркобарон, основатель и лидер одного из крупнейших наркокартелей Мексики Ла Фамилиа.",
-        desc: "Мексиканский наркобарон, основатель и лидер одного из крупнейших наркокартелей Мексики Ла Фамилиа. Картель Ла Фамилиа иногда описывается как квазирелигиозный, так как его текущие лидеры именуют убийства и казни как «божественное правосудие.»"
-      },
-      {
-        name: "Пабло Акоста Вильярреаль",
-        img: "https://www.b17.ru/foto/uploaded/upl_1485445274_117767.jpg",
-        to: "/crimer/4",
-        short_desc: "Мексиканский преступник, крупный наркоторговец, один из основателей наркокартеля Хуареса.",
-        desc: "Мексиканский преступник, крупный наркоторговец, один из основателей наркокартеля Хуареса. Был наставником и деловым партнером мексиканского наркобарона Амадо Каррильо Фуэнтеса. Пабло Акоста Вильярреаль был убит в 1987 году, в результате рейда федеральных агентов Мексики."
-      },
-      {
-        name: "Эктор Луис Пальма Саласар",
-        img: "https://www.b17.ru/foto/uploaded/upl_1485445274_117767.jpg",
-        to: "/crimer/5",
-        short_desc: "Мексиканский торговец наркотиками и бывший лидер и основатель наркокартеля Синалоа.",
-        desc: "Мексиканский торговец наркотиками и бывший лидер и основатель наркокартеля Синалоа. Экс-лидер картеля Гвадалахара. Основатель карательной группы боевиков Лос-Негрос."
-      },
-      {
-        name: "Эдгар Вальдес Вильяреаль",
-        img: "https://www.b17.ru/foto/uploaded/upl_1485445274_117767.jpg",
-        to: "/crimer/6",
-        short_desc: "Америко-мексиканский наркобарон. Эдгар Вальдес являлся одним из лидеров наркокартеля Бельтран Лейва и Лос-Негрос.",
-        desc: "Америко-мексиканский наркобарон. Эдгар Вальдес являлся одним из лидеров наркокартеля Бельтран Лейва и Лос-Негрос. Власти США обещали награду в два миллиона долларов тому, кто предоставит информацию, способствующую аресту Эдгара Вальдеса"
-      }
-    ],
+    books: [],
     fullOrders: [],
     users: [],
     sessions: []
@@ -123,6 +81,9 @@ export default new Vuex.Store({
     },
     getUsers(state) {
       return state.users
+    },
+    getBooks(state) {
+      return state.books
     }
   },
   mutations: {
@@ -186,6 +147,11 @@ export default new Vuex.Store({
     setUsers(state, users) {
       for (var k = 0; k < users.rows.length; k++) {
         state.users.push(users.rows[k])
+      }
+    },
+    setBooks(state, books) {
+      for (var i = 0; i < books.rows.length; i++) {
+        state.books.push(books.rows[i])
       }
     }
   },
@@ -285,6 +251,16 @@ export default new Vuex.Store({
       axios.get("http://127.0.0.1:5000/api/getData?users").then(response => {
         const results = response.data
         commit("setUsers", results)
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    getBooks({
+      commit
+    }) {
+      axios.get("http://127.0.0.1:5000/api/getBooks").then(response => {
+        const results = response.data
+        commit("setBooks", results)
       }).catch(error => {
         console.log(error)
       })

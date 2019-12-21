@@ -15,7 +15,7 @@ STATIC_PATH = "/static"
 
 app = Flask(__name__, static_url_path=STATIC_PATH)
 flask_cors.CORS(app)
-db = SqliteDatabase('backend/base.db')
+db = SqliteDatabase('base.db')
 
 
 class BaseModel(Model):

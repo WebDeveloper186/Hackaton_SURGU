@@ -3,7 +3,7 @@ import Router from "vue-router";
 import Index from "@/components/Index";
 import List from "@/components/List";
 import Cart from "@/components/Cart";
-import Crimer from "@/components/Crimer";
+import Book from "@/components/Book";
 import User from "@/components/User";
 import Team from "@/components/Team"
 import store from "@/store";
@@ -35,13 +35,13 @@ export default new Router({
       }
     },
     {
-      path: "/crimer/:id",
-      name: "Crimer",
-      component: Crimer,
+      path: "/book/:id",
+      name: "Book",
+      component: Book,
       beforeEnter: (to, from, next) => {
         if (
           to.params.id >= 1 ||
-          to.params.id <= store.getters.getCrimers.length
+          to.params.id <= store.getters.getBooks.length
         ) {
           next();
         } else {
