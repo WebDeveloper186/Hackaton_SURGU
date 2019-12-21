@@ -3,9 +3,9 @@
     <v-col class="shrink"></v-col>
     <v-timeline :dense="$vuetify.breakpoint.smAndDown">
       <v-timeline-item color="deep-orange darken-1" fill-dot right>
-        <v-card>
-          <v-card-title class="deep-orange darken-1 ">
-            <h2 class="display-1  white--text font-weight-light">Прокофьев Александр</h2>
+        <v-card style="width:450px">
+          <v-card-title class="deep-orange darken-1">
+            <h2 class="display-1 white--text font-weight-light">Прокофьев Александр</h2>
           </v-card-title>
           <v-container>
             <v-row>
@@ -16,13 +16,13 @@
       </v-timeline-item>
 
       <v-timeline-item color="purple darken-2" fill-dot left small>
-        <v-card>
+        <v-card style="width:850px">
           <v-card-title class="purple darken-2 justify-end">
             <h2 class="display-1 white--text font-weight-light">Кузьмин Сергей</h2>
           </v-card-title>
           <v-container>
             <v-row>
-              <v-col cols="12" md="8">Дизайнер</v-col>
+              <v-col cols="12" md="8" style="margin-left:320px">Дизайнер</v-col>
             </v-row>
           </v-container>
         </v-card>
@@ -31,11 +31,11 @@
       <v-timeline-item color="red lighten-1" fill-dot right>
         <v-card>
           <v-card-title class="red lighten-1">
-            <h2 class="display-1  white--text font-weight-light">Сазонов Савелий</h2>
+            <h2 class="display-1 white--text font-weight-light">Сазонов Савелий</h2>
           </v-card-title>
           <v-container>
             <v-row>
-              <v-col cols="12" md="10">Frontend developer Team leader</v-col>
+              <v-col cols="12" md="10">Frontend developer / Team leader</v-col>
             </v-row>
           </v-container>
         </v-card>
@@ -48,7 +48,7 @@
           </v-card-title>
           <v-container>
             <v-row>
-              <v-col cols="12" md="10">Дизайнер</v-col>
+              <v-col cols="12" md="10" style="margin-left:320px">Дизайнер</v-col>
             </v-row>
           </v-container>
         </v-card>

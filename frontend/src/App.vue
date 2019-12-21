@@ -12,16 +12,6 @@
             </v-list-item-content>
           </v-btn>
         </v-list-item>
-        <v-list-item v-if="$store.state.auth.done == true">
-          <v-btn text @click="changePage('/cart')" class="left_menu">
-            <v-list-item-action>
-              <v-icon>shopping_cart</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title style="font-size: 12px">Заказать услугу</v-list-item-title>
-            </v-list-item-content>
-          </v-btn>
-        </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
@@ -155,7 +145,11 @@
     </v-content>
     <v-footer>
       <div class="flex-grow-1"></div>
-      <div>Developed by xX_flex_Xx &copy; {{ new Date().getFullYear() }}</div>
+      <div>
+        Developed by
+        <b @click="$router.push('/team')" style="cursor:pointer">xX_flex_Xx</b>
+        &copy; {{ new Date().getFullYear() }}
+      </div>
       <v-spacer></v-spacer>
     </v-footer>
   </v-app>
