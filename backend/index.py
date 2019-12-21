@@ -42,6 +42,7 @@ class Books(BaseModel):
     _type = CharField()
     image = CharField()
     flag = IntegerField()
+    username = CharField()
 
 
 class Auth(BaseModel):
@@ -140,6 +141,13 @@ def get_users():
     return jsonify({'rows': list(query)})
 
 
+def add_books(author, name, _type, image, username, flag):
+    a = Books(author = author, name=name, _type=_type, image=image, username=username, flag=flag)
+    a.save()
+    db.commit()
+    return '', status.HTTP_201_CREATED
+
+
 @app.route('/api/auth', methods=['GET', 'PUT', 'POST'])
 def auth():
     if request.method == 'GET':
@@ -216,10 +224,19 @@ def get_books():
         content = request.json
         author = content['author']
         name = content['name']
-        _type = content['type']
+        _type = content['_type']
         image = content['image']
-        return "0"
+        flag = content['flag']
+        username = content['username']
+        return add_books(author, name, _type, image, username, flag)
 
+
+@app.route('/api/myBooks', methods=['GET', 'POST'])
+def my_books():
+    if request.method == 'GET':
+        if request.args.get('username', type=str) is not None:
+            query = Orders.select().where(Orders.user_name == request.args.get('username', type=str)).dicts()
+            return jsonify({'rows': list(query)})
 
 
 if __name__ == "__main__":

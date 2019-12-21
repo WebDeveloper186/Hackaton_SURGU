@@ -36,6 +36,10 @@
                 {{books[$route.params.id - 1].author}}
               </p>
               <p>
+                <b style="text-transform: uppercase">Владелец:</b>
+                {{books[$route.params.id - 1].username}}
+              </p>
+              <p>
                 Жанр:
                 <v-chip
                   v-for="genre in genres"

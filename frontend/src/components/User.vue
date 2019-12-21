@@ -23,92 +23,28 @@
         </v-col>
 
         <v-col cols="12" md="8">
-          <v-data-table
-            :headers="headers"
-            :items="items"
-            :page.sync="page"
-            :items-per-page="itemsPerPage"
-            hide-default-footer
-            @page-count="pageCount = $event"
-            class="elevation-1"
-          >
+          <v-data-table :headers="headers" :items="desserts" sort-by="calories" class="elevation-1">
             <template v-slot:top>
-              <v-toolbar flat color="deep-purple accent-2" height="50px">
-                <v-toolbar-title>Работа с заявками</v-toolbar-title>
+              <v-toolbar flat color="indigo">
+                <v-toolbar-title>Мои заявки</v-toolbar-title>
                 <v-divider class="mx-4" inset vertical></v-divider>
                 <v-spacer></v-spacer>
-                <v-dialog v-model="dialog" max-width="500px">
-                  <template v-slot:activator="{ on }">
-                    <v-btn
-                      color="purple darken-1"
-                      dark
-                      class="mb-2 mt-2"
-                      @click="$router.push('/cart')"
-                    >Разместить книгу</v-btn>
-                  </template>
-                  <v-card>
-                    <v-card-title>
-                      <span class="headline">Редактировать заказ</span>
-                    </v-card-title>
-
-                    <v-card-text>
-                      <v-container>
-                        <v-row>
-                          <v-col cols="12" sm="6" md="4">
-                            <v-text-field
-                              :disabled="true"
-                              v-model="editedItem.id"
-                              label="ID заказа"
-                            ></v-text-field>
-                          </v-col>
-                          <v-col cols="12" sm="6" md="4">
-                            <v-text-field v-model="editedItem.address" label="Адресс"></v-text-field>
-                          </v-col>
-                          <v-col cols="12" sm="6" md="4">
-                            <v-text-field
-                              :disabled="true"
-                              v-model="editedItem.time"
-                              label="Дата заказа"
-                            ></v-text-field>
-                          </v-col>
-                          <v-col cols="12" sm="12">
-                            <v-select
-                              max-width="300"
-                              v-model="select"
-                              :items="shop"
-                              chips
-                              multiple
-                              label="Выбор услуги"
-                            ></v-select>
-                          </v-col>
-                          <v-col cols="12" sm="6" md="4">
-                            <v-text-field
-                              :disabled="true"
-                              v-model="editedItem.price"
-                              label="Стоимость"
-                            ></v-text-field>
-                          </v-col>
-                        </v-row>
-                      </v-container>
-                    </v-card-text>
-
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-                      <v-btn color="blue darken-1" text @click="save">Save</v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
+                <v-btn
+                  color="primary"
+                  dark
+                  class="mb-2"
+                  @click="$router.push('/cart')"
+                >Разместить книгу</v-btn>
               </v-toolbar>
             </template>
             <template v-slot:item.action="{ item }">
-              <v-icon color="green" small class="mr-2" @click="editItem(item)">edit</v-icon>
-              <v-icon color="red" small @click="deleteItem(item.id)">delete</v-icon>
+              <v-icon small class="mr-2" @click="success()">check_circle</v-icon>
+              <v-icon small @click="deleteItem(item)">delete</v-icon>
+            </template>
+            <template v-slot:no-data>
+              <v-btn color="primary" @click="initialize">Reset</v-btn>
             </template>
           </v-data-table>
-          <div class="text-center pt-2">
-            <v-pagination v-model="page" color="success" :length="pageCount"></v-pagination>
-          </div>
         </v-col>
       </v-row>
     </v-col>
@@ -121,128 +57,96 @@ export default {
   name: "User",
   data() {
     return {
-      cart: this.$store.getters.getCart,
       user_data: this.$store.state.auth,
-      shop: [],
-      select: [],
-      time: "",
       dialog: false,
-      page: 1,
-      pageCount: 0,
-      itemsPerPage: 10,
-      services: "",
       headers: [
         {
           text: "ID книги",
-          value: "id"
+          align: "left",
+          sortable: false,
+          value: "name"
         },
-        { text: "Название книги", value: "address", sortable: false },
-        { text: "Имя получателя", value: "time", sortable: false },
-        { text: "Статус", value: "services", sortable: false },
+        { text: "Автор", value: "calories" },
+        { text: "Название", value: "fat" },
+        { text: "Статус", value: "carbs" },
         { text: "Действия", value: "action", sortable: false }
       ],
+      desserts: [],
       editedIndex: -1,
       editedItem: {
-        id: "",
-        address: "",
-        services: "",
-        price: ""
+        name: "",
+        calories: 0,
+        fat: 0,
+        carbs: 0,
+        protein: 0
       },
-      items: this.$store.getters.getOrders
+      defaultItem: {
+        name: "",
+        calories: 0,
+        fat: 0,
+        carbs: 0,
+        protein: 0
+      }
     };
   },
+
+  computed: {
+    formTitle() {
+      return this.editedIndex === -1 ? "New Item" : "Edit Item";
+    }
+  },
+
   watch: {
-    select() {
-      if (this.select.length > 0) {
-        this.editedItem.price = 0;
-        for (var i = 0; i < this.select.length; i++) {
-          this.editedItem.price += this.cart[
-            this.shop.indexOf(this.select[i])
-          ].price;
-        }
-      } else {
-        this.editedItem.price = 0;
-      }
-    },
     dialog(val) {
       val || this.close();
     }
   },
+
   created() {
-    for (let i = 0; i < this.cart.length; i++) {
-      this.shop.push(this.cart[i].name);
-    }
+    this.initialize();
   },
+
   methods: {
-    reset() {
-      this.select = [];
-      this.services = "";
+    success() {
+      this.desserts[0].carbs = "Одобрена";
     },
-    editItem(item) {
-      this.editedIndex = this.items.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialog = true;
-      this.select = this.editedItem.services.split(",");
+    initialize() {
+      this.desserts = [
+        {
+          name: 12,
+          calories: "Дмитрий Глуховский",
+          fat: "Метро 2033",
+          carbs: "Свободна"
+        }
+      ];
     },
 
-    deleteItem(id) {
-      axios
-        .delete("http://127.0.0.1:5000/api/orders", {
-          data: {
-            id: id
-          }
-        })
-        .then(response => {
-          if (response.status == 204) {
-            this.$store.dispatch("removeOrders");
-            this.$store.dispatch("getOrderData");
-            this.items = this.$store.getters.getOrders;
-          }
-        })
-        .catch(error => {
-          console.log(error);
-        });
+    editItem(item) {
+      this.editedIndex = this.desserts.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialog = true;
+    },
+
+    deleteItem(item) {
+      const index = this.desserts.indexOf(item);
+      confirm("Are you sure you want to delete this item?") &&
+        this.desserts.splice(index, 1);
     },
 
     close() {
       this.dialog = false;
-      this.editedItem = Object.assign({}, this.defaultItem);
-      this.editedIndex = -1;
+      setTimeout(() => {
+        this.editedItem = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+      }, 300);
     },
 
     save() {
-      var today = new Date();
-      var dd = String(today.getDate()).padStart(2, "0");
-      var mm = String(today.getMonth() + 1).padStart(2, "0");
-      var yyyy = today.getFullYear();
-
-      for (var i = 0; i < this.select.length; i++) {
-        if (i != this.select.length - 1) {
-          this.services += this.select[i] + ",";
-        } else {
-          this.services += this.select[i];
-        }
+      if (this.editedIndex > -1) {
+        Object.assign(this.desserts[this.editedIndex], this.editedItem);
+      } else {
+        this.desserts.push(this.editedItem);
       }
-      this.time = dd + "." + mm + "." + yyyy;
-
-      axios
-        .put("http://127.0.0.1:5000/api/orders", {
-          id: this.editedItem.id,
-          username: this.user_data.username,
-          address: this.editedItem.address,
-          time: this.time,
-          services: this.services,
-          price: this.editedItem.price
-        })
-        .then(response => {
-          this.$store.dispatch("removeOrders");
-          this.$store.dispatch("getOrderData");
-          this.items = this.$store.getters.getOrders;
-          this.reset();
-        })
-        .catch(error => {
-          console.log(error);
-        });
       this.close();
     }
   }
