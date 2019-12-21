@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col class=".col-6 .col-md4" v-for="crimer in crimers" :key="crimer.name">
+    <v-col class=".col-4 .col-md4" v-for="book in books" :key="book.name">
       <v-card
         class="mx-auto"
         :flat="flat"
@@ -10,17 +10,17 @@
         :height="height"
         style="border-radius: 10px"
       >
-        <v-img height="66%" :src="crimer.img"></v-img>
+        <v-img height="66%" :src="book.img"></v-img>
         <v-card-title>
           <v-spacer></v-spacer>
-          {{crimer.name}}
+          {{book.name}}
           <v-spacer></v-spacer>
         </v-card-title>
         <v-divider></v-divider>
-        <v-card-text class="crimer_text">{{crimer.short_desc}}</v-card-text>
+        <v-card-text class="crimer_text">{{book.short_desc}}</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn class="deep-purple" @click="changePage(crimer.to)">Подробнее</v-btn>
+          <v-btn class="deep-purple" @click="changePage(book.to)">Подробнее</v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
@@ -38,8 +38,13 @@ export default {
       raised: false,
       width: 550,
       height: 600,
-      crimers: this.$store.getters.getCrimers
+      books: this.$store.getters.getBooks
     };
+  },
+  methods: {
+    changePage(to) {
+      this.$router.push(to);
+    }
   }
 };
 </script>

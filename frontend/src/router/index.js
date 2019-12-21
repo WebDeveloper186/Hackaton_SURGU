@@ -1,14 +1,11 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Index from "@/components/Index";
-import About from "@/components/About";
 import List from "@/components/List";
 import Cart from "@/components/Cart";
-import Form from "@/components/Form";
 import Crimer from "@/components/Crimer";
 import User from "@/components/User";
-import Tables from "@/components/Tables";
-import Photos from "@/components/Photos";
+import Team from "@/components/Team"
 import store from "@/store";
 
 Vue.use(Router);
@@ -26,11 +23,6 @@ export default new Router({
       component: List
     },
     {
-      path: "/about",
-      name: "About",
-      component: About
-    },
-    {
       path: "/cart",
       name: "Cart",
       component: Cart,
@@ -41,11 +33,6 @@ export default new Router({
           next('/')
         }
       }
-    },
-    {
-      path: "/form",
-      name: "Form",
-      component: Form
     },
     {
       path: "/crimer/:id",
@@ -75,14 +62,9 @@ export default new Router({
       }
     },
     {
-      path: "/tables",
-      name: "Tables",
-      component: Tables
-    },
-    {
-      path: "/images",
-      name: "Photos",
-      component: Photos
+      path: "/team",
+      name: "Team",
+      component: Team
     }
   ]
 });
