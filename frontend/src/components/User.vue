@@ -44,7 +44,7 @@
                       dark
                       class="mb-2 mt-2"
                       @click="$router.push('/cart')"
-                    >Новый заказ</v-btn>
+                    >Разместить книгу</v-btn>
                   </template>
                   <v-card>
                     <v-card-title>
@@ -133,13 +133,12 @@ export default {
       services: "",
       headers: [
         {
-          text: "ID заказа",
+          text: "ID книги",
           value: "id"
         },
-        { text: "Адресс", value: "address", sortable: false },
-        { text: "Дата заказа", value: "time", sortable: false },
-        { text: "Услуги", value: "services", sortable: false },
-        { text: "Стоимость", value: "price", sortable: false },
+        { text: "Название книги", value: "address", sortable: false },
+        { text: "Имя получателя", value: "time", sortable: false },
+        { text: "Статус", value: "services", sortable: false },
         { text: "Действия", value: "action", sortable: false }
       ],
       editedIndex: -1,

@@ -2,22 +2,17 @@
   <v-row justify="center" align="center">
     <v-col cols="12" sm="6">
       <v-form ref="form" class="cart-form" width="400" flat>
-        <span>Стоимость итогового заказа : {{price}} BTC</span>
         <v-text-field v-model="username" label="Имя пользователя" :disabled="true"></v-text-field>
 
-        <v-text-field v-model="address" label="Адрес доставки"></v-text-field>
+        <v-text-field v-model="address" label="Название книги"></v-text-field>
 
-        <v-select
-          max-width="300"
-          v-model="select"
-          :items="shop"
-          chips
-          multiple
-          label="Выбор услуги"
-        ></v-select>
+        <v-text-field v-model="address" label="Автор книги"></v-text-field>
 
-        <v-btn color="success" class="mr-3" @click="order">Заказать</v-btn>
-        <v-btn color="info" class="mr-3" @click="goto_lk">Посмотреть заказы</v-btn>
+        <v-text-field v-model="address" label="Жанры"></v-text-field>
+        
+        <v-text-field v-model="address" label="Ссылка на обложку книги"></v-text-field>
+        
+        <v-btn color="success" class="mr-3" @click="order">Разместить</v-btn>
         <v-btn color="error" class="mr-3" @click="reset">Очистить форму</v-btn>
       </v-form>
     </v-col>
